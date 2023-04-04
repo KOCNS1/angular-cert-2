@@ -1,7 +1,18 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { registerLocaleData } from '@angular/common';
+import { provideHttpClient } from '@angular/common/http';
+import en from '@angular/common/locales/en';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideRouter } from '@angular/router';
+import { AppComponent } from './app/app.component';
+import { APP_ROUTE } from './app/app.route';
 
-import { AppModule } from './app/app.module';
+registerLocaleData(en);
 
-
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.error(err));
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideAnimations(),
+    provideHttpClient(),
+    provideRouter(APP_ROUTE),
+  ],
+}).catch(console.error);
