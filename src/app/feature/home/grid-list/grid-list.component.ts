@@ -35,18 +35,26 @@ import { TrackedTeam } from 'src/app/shared/models/tracked-team.model';
       *ngFor="let team of trackedTeams"
       [nzActions]="[avatarTemplate]"
     >
-      <span class="x" (click)="removeTrackedTeam(team)">x</span>
+      <span
+        id="remove{{ team.abbreviation }}"
+        class="x"
+        (click)="removeTrackedTeam(team)"
+        >x</span
+      >
       <img
         src="https://interstate21.com/nba-logos/{{ team.abbreviation }}.png"
       />
       <h3>{{ team.name }} [{{ team.abbreviation }}]</h3>
       <p>{{ team.conference === 'East' ? 'Eastern' : 'Western' }} conference</p>
-      <div>
-        <nz-tag
-          *ngFor="let res of team.results"
-          nzColor="{{ res.result === 'W' ? 'success' : 'error' }}"
-          >{{ res.result }}</nz-tag
-        >
+      <div class="res">
+        Results of the past 12 days:
+        <div>
+          <nz-tag
+            *ngFor="let res of team.results"
+            nzColor="{{ res.result === 'W' ? 'success' : 'error' }}"
+            >{{ res.result }}</nz-tag
+          >
+        </div>
       </div>
       <nz-divider></nz-divider>
       <div class="score">
@@ -60,7 +68,12 @@ import { TrackedTeam } from 'src/app/shared/models/tracked-team.model';
         </div>
       </div>
       <ng-template #avatarTemplate>
-        <div [routerLink]="['/results', team.id]">See Game results >></div>
+        <div
+          id="results{{ team.abbreviation }}"
+          [routerLink]="['/results', team.abbreviation]"
+        >
+          See Game results >>
+        </div>
       </ng-template>
     </nz-card>
   </div>`,
@@ -101,6 +114,11 @@ import { TrackedTeam } from 'src/app/shared/models/tracked-team.model';
       }
       img {
         width: 5rem;
+      }
+      .res {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
       }
     `,
   ],

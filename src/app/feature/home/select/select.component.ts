@@ -20,6 +20,7 @@ import { TeamService } from '../../../core/services/provider/team/team.service';
   selector: 'app-select',
   template: `<div class="select">
     <nz-select
+      id="teamSelect"
       nzShowSearch
       nzPlaceHolder="Select a team"
       [formControl]="selectedTeamControlId"
@@ -37,7 +38,12 @@ import { TeamService } from '../../../core/services/provider/team/team.service';
         {{ team.name }}
       </nz-option>
     </nz-select>
-    <button nz-button nzType="primary" (click)="addNewTrackedTeam()">
+    <button
+      id="trackBtn"
+      nz-button
+      nzType="primary"
+      (click)="addNewTrackedTeam()"
+    >
       Track Team
     </button>
   </div>`,
